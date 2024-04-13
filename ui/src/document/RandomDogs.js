@@ -1,25 +1,29 @@
 import React , {useState} from 'react'
 import axios from 'axios'
+import './RandomDogs.css';
 
 const RandomDogs = () => {
-  const [imageUrl , setInmageUrl] = useState('');
+  const [imageUrl , setImageUrl] = useState('');
 
   const fetchImage = () => {
     axios.get('https://dog.ceo/api/breeds/image/random')
     .then(response => {
-      setInmageUrl(response.data.message);
+      setImageUrl(response.data.message);
     })
-    .catch(e =>{
-      console.e('Error fetched' , e);
-      setInmageUrl('');
+    .catch(e => {
+      console.error('Error fetched' , e);
+      setImageUrl('');
     })
   }
 
   return (
-    <div className='RandomDogs'>
-     <button onClick={fetchImage}>Fetch!</button>
-     {imageUrl && <img src = {imageUrl} alt = "A random Dog" style = {{maxWidth: '90%' , marginTop: '20px'}} />}
-    </div>
+    <section className='RandomDogs'>
+      <header>
+        <h1>Click Button to Show a random dog</h1>
+      </header>
+      <button onClick={fetchImage}>Fetch</button>
+      {imageUrl && <img src = {imageUrl} alt = "A random Dog" />}
+    </section>
   )
 }
 
